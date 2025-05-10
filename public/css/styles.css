@@ -4,3 +4,124 @@
 *:after {
   box-sizing: border-box;
 }
+
+:root {
+  --brand-color: #ee4;
+  --brand-color-2: #1d1d03;
+  --primary-font-color: #000;
+  --secondary-font-color: #fff;
+}
+
+body {
+  margin: auto;
+  color: #000;
+  font-family: Verdana, Tahoma, sans-serif;
+}
+main {
+  padding: .5rem;
+  font-size: .9rem;
+}
+
+nav {
+  padding: 1rem;
+  background-color: var(--brand-color);
+  color: var(--primary-font-color);
+  display: flex;
+  justify-content: space-around;
+}
+nav a {
+  display: block;
+  text-decoration: none;
+  font-size: 1.2rem;
+  color: var(--primary-font-color);
+}
+button{
+  background: var(--brand-color);
+  border: 1px var(--brand-color) solid;
+  border-radius: 0.375rem;
+  padding: 0.7rem;
+  margin: .2rem 0 .5rem 0;
+  font-weight: bold;
+  color: var(--primary-font-color);
+}
+img {
+  max-width: 99vw;
+  height: auto;
+}
+
+#top-header {
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem 2rem;
+}
+.siteName a {
+  text-decoration: none;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--brand-color-2);
+}
+#tools a {
+  text-decoration: none;
+  color: var(--brand-color-2);
+}
+.hero-container {
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+.hero-overlay {
+  position: absolute;
+  top: 10%;
+  left: 10%;
+  background-color: #f5f5f5;
+  opacity: .8;
+  padding: .5rem 1rem;
+  color: var(--brand-color-2);
+}
+.home-grid-area {
+  display: grid;
+  grid-template-areas: 
+  "review"
+  "upgrade";
+}
+.home-grid-area > .reviews {
+  grid-area: review;
+}
+.home-grid-area > .upgrades {
+  grid-area: upgrade;
+}
+.reviews li {
+  line-height: 2.5rem;
+}
+.d-grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4px;
+  justify-items: center;
+  text-align: center;
+}
+.upgrade-img-box {
+  display: flex;
+  align-content: center;
+  padding: 2rem;
+  background-color: var(--brand-color);
+}
+
+
+@media screen and (min-width: 37em) {
+  body {
+    background-image: url(/images/site/checkerboard.jpg);
+  }
+
+  .content-box {
+    margin: 2rem;
+    padding: .375rem;
+    border: 4px solid var(--brand-color);
+    border-radius: 10px;
+    background-color: var(--secondary-font-color);
+  }
+  .home-grid-area {
+    grid-template-areas: 
+    "upgrade review";
+  }
+}
