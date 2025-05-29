@@ -22,18 +22,22 @@ main {
   font-size: .9rem;
 }
 
-nav {
+nav ul {
   padding: 1rem;
   background-color: var(--brand-color);
   color: var(--primary-font-color);
   display: flex;
   justify-content: space-around;
 }
-nav a {
-  display: block;
+nav li, nav  a  {
+  list-style: none;
   text-decoration: none;
   font-size: 1.2rem;
   color: var(--primary-font-color);
+}
+nav ul li:hover {
+  transform: scale(1.2);
+  transition: transform .2s ease-in-out;
 }
 button{
   background: var(--brand-color);
