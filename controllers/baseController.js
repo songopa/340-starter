@@ -6,4 +6,11 @@ baseController.buildHome = async function (req, res) {
     res.render('index', { title: "Home", nav })
 };
 
+baseController.errorTest = async function (req, res) {
+    const nav = await utilities.getNav();
+    // Simulate an error
+    throw new Error("This is a test error for the error handler.");
+    
+}
+
 module.exports = baseController;

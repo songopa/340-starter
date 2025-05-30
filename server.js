@@ -45,10 +45,11 @@ app.listen(port, () => {
 //Index route
 app.get("/", utilities.handleErrors(baseController.buildHome))
 //Inventory route
-app.use("/inv/", inventoryRoute)
+app.use("/inv/", utilities.handleErrors(inventoryRoute))
 
 
-
+//Erro test route
+app.get("/error/test", utilities.handleErrors(baseController.errorTest))
 // File Not Found Route - must be last route in list
 app.use(async (req, res, next) => {
   next({ status: 404, message: 'Sorry, we appear to have lost that page.' })

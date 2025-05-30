@@ -6,10 +6,8 @@ const Util = {};
  ************************** */
 Util.getNav = async function (req, res, next) {
     let data = await invModel.getClassifications()
-    let list = "<ul>"
-    list += '<li><a href="/" title="Home page">Home</a></li>'
+    let list ='<a href="/" title="Home page">Home</a>'
     data.rows.forEach((row) => {
-        list += "<li>"
         list +=
             '<a href="/inv/type/' +
             row.classification_id +
@@ -18,9 +16,7 @@ Util.getNav = async function (req, res, next) {
             ' vehicles">' +
             row.classification_name +
             "</a>"
-        list += "</li>"
     })
-    list += "</ul>"
     return list
 }
 
@@ -30,7 +26,7 @@ Util.getNav = async function (req, res, next) {
 Util.buildClassificationGrid = async function (data) {
     let grid
     if (data.length > 0) {
-        grid = '<ul id="inv-display">'
+        grid = '<ul id="inv-display" class="inventory-grid"> '
         data.forEach(vehicle => {
             grid += '<li>'
             grid += '<a href="../../inv/detail/' + vehicle.inv_id
@@ -38,8 +34,8 @@ Util.buildClassificationGrid = async function (data) {
                 + 'details"><img src="' + vehicle.inv_thumbnail
                 + '" alt="Image of ' + vehicle.inv_make + ' ' + vehicle.inv_model
                 + ' on CSE Motors" /></a>'
-            grid += '<div class="namePrice">'
-            grid += '<hr />'
+            grid += '<div class="name-price">'
+            // grid += '<hr />'
             grid += '<h2>'
             grid += '<a href="../../inv/detail/' + vehicle.inv_id + '" title="View '
                 + vehicle.inv_make + ' ' + vehicle.inv_model + ' details">'
@@ -63,5 +59,29 @@ Util.buildClassificationGrid = async function (data) {
  * General Error Handling
  **************************************** */
 Util.handleErrors = fn => (req, res, next) => Promise.resolve(fn(req, res, next)).catch(next)
+
+
+/* **************************************
+* Build the vehicle details view HTML
+* ************************************ */
+Util.buildVehicleDetails = async function (data) {
+    let details = '<div class="vehicle-container">'
+    details += '<img src="' + data.inv_image + '" alt="Image of ' + data.inv_make + ' ' + data.inv_model + '"/>'
+    details += '<div class="vehicle-info">'
+    details += '<h1> ' + data.inv_year + ' ' + data.inv_make + ' ' + data.inv_model +'</h1>'
+    details += '<p><strong>Price: </strong> $' + new Intl.NumberFormat('en-US').format(data.inv_price) + '</p>'
+    details += '<p><strong>Class: </strong> ' + data.classification_name + '</p>'
+    details += '<p><strong>Color: </strong> ' + data.inv_color + '</p>'
+    details += '<p><strong>Mileage: </strong> ' + new Intl.NumberFormat('en-US').format(data.inv_miles) + ' miles</p>'
+    details += '<p><strong>Year: </strong> ' + data.inv_year + '</p>'
+    details += '<p><strong>Description: </strong> ' + data.inv_description + '</p>'
+    details += '<div class="d-flex-between">'
+    details += '<button>Buy Now</button>'
+    details += '<button>Contact Us</button>'
+    details += '</div>'
+    details += '</div>'
+    details += '</div>'
+    return details
+}
 
 module.exports = Util
