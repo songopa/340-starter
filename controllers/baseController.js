@@ -9,7 +9,7 @@ baseController.buildHome = async function (req, res) {
 baseController.errorTest = async function (req, res) {
     const nav = await utilities.getNav();
     // Simulate an error
-    throw new Error("This is a test error for the error handler.");
+    throw new Error("This is a test error for error handling.");
     
 }
 
