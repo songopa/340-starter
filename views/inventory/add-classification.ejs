@@ -1,0 +1,29 @@
+<h1>
+    <%- title %>
+</h1>
+<div>
+    <%- messages() %>
+</div>
+<div class="d-flex-center text-danger">
+    <% if (errors) { %>
+        <ul class="notice">
+            <% errors.array().forEach(error=> { %>
+                <li>
+                    <%= error.msg %>
+                </li>
+                <% }) %>
+        </ul>
+        <% } %>
+</div>
+
+<div class="d-flex-center margin-sm">
+    <form action="/inv/add-classification" method="post">
+        <label>
+            Classification Name <sup>*</sup>
+            <input type="text" name="classification_name" id="classification_name" placeholder="Classification Name"
+            pattern="^[A-Za-z0-9]+$" required>
+            <small>Cannot contain space or special character</small>
+        </label>
+        <button type="submit" class="center">Create Classification</button>
+    </form>
+</div>

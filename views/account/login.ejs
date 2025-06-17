@@ -1,0 +1,22 @@
+<h1>
+    <%= title %>
+</h1>
+<div>
+    <%- messages() %>
+</div>
+<div class="d-flex-center">
+    <form action="/account/login" method="post">
+        <label>
+            Email <sup>*</sup>
+            <input type="email" name="account_email" id="email" placeholder="Your email" required>
+        </label>
+        <label>
+            Password <sup>*</sup>
+            <input type="password" name="account_password" id="password" placeholder="Password" required>
+        </label>
+        <div class="mt-sm">
+            <small>No account? <a href="/account/register" id="signupLink"> Register </a> instead. </small>
+        </div>
+        <button type="submit" class="center">Sign In</button>
+</div>
+

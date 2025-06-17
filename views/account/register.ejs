@@ -1,0 +1,50 @@
+<h1>
+    <%= title %>
+</h1>
+<div class="text-center">
+    <p><%- messages() %></p>
+    
+</div>
+<div class="d-flex-center text-danger">
+    <% if (errors) { %>
+        <ul class="notice">
+            <% errors.array().forEach(error=> { %>
+                <li>
+                    <%= error.msg %>
+                </li>
+                <% }) %>
+        </ul>
+        <% } %>
+</div>
+<div class="d-flex-center">
+    
+    <form action="/account/register" method="post">
+        <label>
+            First name <sup>*</sup>
+            <input type="text" name="account_firstname" id="name" placeholder="Your first name" required>
+        </label>
+        <label>
+            Last name <sup>*</sup>
+            <input type="text" name="account_lastname" id="name" placeholder="Your last names" required>
+        </label>
+        <label>
+            Email address<sup>*</sup>
+            <input type="email" name="account_email" id="email" placeholder="Your email" required>
+        </label>
+        <label>
+            Password <sup>*</sup>
+            <input type="password" name="account_password" id="password" placeholder="Password"
+            pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$" required>
+            <small>
+                Passwords must be at least 12 characters <br> 
+                contain at least 1 number <br>
+                contain 1 capital letter and <br>
+                contain 1 special character
+            </small>
+        </label>
+        <div class="mt-sm">
+            <small>Have an account? <a href="/account/login" id="signupLink"> Login </a> instead. </small>
+        </div>
+        <button type="submit" class="center">Register</button>
+</div>
+

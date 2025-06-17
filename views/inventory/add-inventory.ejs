@@ -1,0 +1,55 @@
+<h1>
+    <%- title %>
+</h1>
+<div>
+    <%- messages() %>
+</div>
+<div class="d-flex-center text-danger">
+    <% if (errors) { %>
+        <ul class="notice">
+            <% errors.array().forEach(error=> { %>
+                <li>
+                    <%= error.msg %>
+                </li>
+                <% }) %>
+        </ul>
+        <% } %>
+</div>
+
+<div class="d-flex-center margin-sm">
+    <form action="/inv/add-inventory" method="post">
+        <label>
+            Classification <sup>*</sup>
+            <%- classificationList %>
+        </label>
+        <label>
+            Vehicle Make <sup>*</sup>
+            <input type="text" name="inv_make"  placeholder="Vehicle Make" required>
+        </label>
+        <label>
+            Vehicle Model <sup>*</sup>
+            <input type="text" name="inv_model"  placeholder="Vehicle Model" required>
+        </label>
+        <label>
+            Year of manufacture <sup>*</sup>
+            <input type="number" name="inv_year" min="1900" max="2025"  placeholder="YYYY" required>
+        </label>
+        <label>
+            Description <sup>*</sup>
+            <textarea name="inv_description" placeholder="Vehicle Description" required></textarea>
+        </label>
+        <label >
+            Price <sup>*</sup>
+            <input type="number" name="inv_price" placeholder="Vehicle Price" required>
+        </label>
+        <label >
+            Miles <sup>*</sup>
+            <input type="number" name="inv_miles" placeholder="Vehicle Mileage" required>
+        </label>
+        <label >
+            Color <sup>*</sup>
+            <input type="text" name="inv_color" placeholder="Vehicle Color" required>
+        </label>
+        <button type="submit" class="center">Save vehicle to inventory</button>
+    </form>
+</div>

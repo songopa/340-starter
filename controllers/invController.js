@@ -37,4 +37,71 @@ invCont.buildVehicleDetails = async function (req, res, next) {
         next({ status: 404, message: "Sorry, no vehicle found with that ID." })
     }
 }
+
+invCont.buildInvManagement = async function (req, res) {
+    let nav = await utilities.getNav()
+    res.render("./inventory/management", {
+        title: "Inventory Management",
+        nav,
+    })
+}
+
+invCont.buildAddClassification = async function (req, res) {
+    let nav = await utilities.getNav()
+    res.render("./inventory/add-classification", {
+        title: "Add New Classification",
+        nav,
+        errors: null,
+    })
+}
+
+
+invCont.saveNewClassification = async function (req, res) {
+    let nav = await utilities.getNav();
+    const { classification_name } = req.body;
+    const result = await invModel.saveNewClassification(classification_name);
+    
+    if (result) {
+        req.flash("notice", "New classification added successfully.");
+        res.status(201).redirect("/inv");
+    } else {
+        req.flash("notice", "Failed to add new classification.");
+        res.status(501).render("./inventory/add-classification", {
+            title: "Add New Classification",
+            nav,
+            errors: null,
+        });
+    }
+}
+
+
+invCont.buildAddInventory = async function (req, res) {
+    let nav = await utilities.getNav();
+    res.render("./inventory/add-inventory", {
+        title: "Add New Inventory",
+        classificationList: await utilities.buildClassificationList(),
+        nav,
+        errors: null,
+    })
+}
+
+invCont.saveNewInventory = async function (req, res) {
+    let nav = await utilities.getNav();
+    const invData = req.body;
+    const result = await invModel.saveNewInventory(invData);
+
+    if (result) {
+        req.flash("notice", "New inventory item added successfully.");
+        res.status(201).redirect("/inv");
+    } else {
+        req.flash("notice", "Failed to add new inventory item.");
+        res.status(501).render("./inventory/add-inventory", {
+            title: "Add New Inventory",
+            classificationList: await utilities.buildClassificationList(),
+            nav,
+            errors: null,
+        });
+    }
+}
+
 module.exports = invCont;

@@ -82,7 +82,7 @@ footer a {
   color: var(--secondary-font-color);
 }
 
-button{
+button, .button{
   background: var(--brand-color-3);
   border: 1px var(--brand-color-3) solid;
   border-radius: 0.375rem;
@@ -91,8 +91,9 @@ button{
   font-weight: bold;
   color: var(--primary-font-color);
   cursor: pointer;
+  text-decoration: none;
 }
-button:hover {
+button:hover, .button:hover {
   transform: scale(1.05);
   transition: transform .2s ease-in-out;
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
@@ -145,12 +146,35 @@ h1, h2, h3 {
   justify-content: space-around;
   align-items: center;
 }
+.d-flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.df-flex-around {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-wrap: wrap;
+}
 .content-box {
   margin: 1rem;
   padding: .5rem;
   border: 2px solid var(--brand-color);
   border-radius: 10px;
   background-color: var(--secondary-font-color);
+}
+.text-center {
+  text-align: center;
+}
+.mt-sm {
+  margin-top: 1rem;
+}
+.margin-sm {
+  margin: 1rem;
+}
+.text-danger {
+  color: red;
 }
 /*end general section styles */
 
@@ -261,6 +285,110 @@ h1, h2, h3 {
 }
 
 /* end vehicle detail page */
+
+/* form styling */
+form {
+  display: block;
+  padding: 0 1rem;
+  min-width: 280px;
+}
+
+label {
+  display: block;
+  margin-top: 1rem;
+  font-size: .9rem;
+  font-weight: 500;
+}
+
+.d-flex label {
+  margin-top: 0;
+}
+
+input[type='text'],
+input[type='date'],
+input[type='number'],
+input[type='email'],
+input[type='password'],
+input[type='tel'],
+select,
+textarea {
+  display: block;
+  padding: 0.7rem;
+  border-radius: 4px;
+  border: 1px solid var(--heading-background);
+  width: 90% !important;
+  max-width: 300px;
+  margin: .2rem 0 .5rem 0;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+  border: 2px solid var(--heading-background);
+}
+
+input:required,
+select:required,
+textarea:required {
+  border-left: 2px solid red;
+}
+
+input:required:valid,
+select:required:valid,
+textarea:required:valid {
+  border-left: 2px solid green;
+}
+
+fieldset {
+  border-radius: 4px;
+  border: var(--card-border);
+}
+
+legend {
+  font-size: .9rem;
+}
+
+form button[type='submit'] {
+  width: 80%;
+  margin: 1rem 10% 0 10%;
+}
+
+label sup,
+legend sup {
+  color: var(--brand-color);
+}
+
+.chunk-label {
+  margin-bottom: -.5rem;
+}
+
+.stacked-items {
+  position: relative;
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: stretch;
+}
+
+.stacked-items input {
+  position: relative;
+  flex: 1 1 auto;
+  width: 1%;
+  min-width: 0;
+  border-right: none;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.stacked-items button {
+  position: relative;
+  z-index: 2;
+  border-left: none;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  background: var(--card-background);
+}
+/* end form styling */
 
 /* Responsive Design */
 @media screen and (min-width: 37em) {
