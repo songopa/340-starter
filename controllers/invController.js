@@ -80,10 +80,12 @@ invCont.saveNewClassification = async function (req, res) {
 
 invCont.buildAddInventory = async function (req, res) {
     let nav = await utilities.getNav();
+    let invData = []
     res.render("./inventory/add-inventory", {
         title: "Add New Inventory",
         classificationSelect: await utilities.buildClassificationList(),
         nav,
+        invData,
         errors: null,
     })
 }
