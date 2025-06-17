@@ -24,32 +24,32 @@
         </label>
         <label>
             Vehicle Make <sup>*</sup>
-            <input type="text" name="inv_make" value="<%= invData.inv_make %>" placeholder="Vehicle Make" required>
+            <input type="text" name="inv_make" value="<%= inv_make %>"  placeholder="Vehicle Make" required>
         </label>
         <label>
             Vehicle Model <sup>*</sup>
-            <input type="text" name="inv_model" value="<%= invData.inv_model %>" placeholder="Vehicle Model" required>
+            <input type="text" name="inv_model" value="<%= inv_model %>"  placeholder="Vehicle Model" required>
         </label>
         <label>
             Year of manufacture <sup>*</sup>
-            <input type="number" name="inv_year" min="1900" max="2025" value="<%= invData.inv_year %>" placeholder="YYYY" required>
+            <input type="number" name="inv_year" min="1900" max="2025" value="<%= inv_year %>" placeholder="YYYY" required>
         </label>
         <label>
             Description <sup>*</sup>
-            <textarea name="inv_description" placeholder="Vehicle Description" required><%= invData.inv_description %></textarea>
+            <textarea name="inv_description" placeholder="Vehicle Description" required><%= inv_description %></textarea>
         </label>
         <label >
             Price <sup>*</sup>
-            <input type="number" name="inv_price" value="<%= invData.inv_price %>" placeholder="Vehicle Price" required>
+            <input type="number" name="inv_price"value="<%= inv_price %>" placeholder="Vehicle Price" required>
         </label>
         <label >
             Miles <sup>*</sup>
-            <input type="number" name="inv_miles" value="<%= invData.inv_miles %>" placeholder="Vehicle Mileage" required>
+            <input type="number" name="inv_miles" value="<%= inv_miles %>" placeholder="Vehicle Mileage" required>
         </label>
         <label >
             Color <sup>*</sup>
-            <input type="text" name="inv_color" value="<%= invData.inv_color %>" placeholder="Vehicle Color" required>
+            <input type="text" name="inv_color" value="<%= inv_color %>" placeholder="Vehicle Color" required>
         </label>
-        <button type="submit" class="center">Save vehicle to inventory</button>
+        <button type="submit" class="center">Update vehicle details</button>
     </form>
 </div>

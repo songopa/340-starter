@@ -97,7 +97,7 @@ validate.checkInventoryData = async (req, res, next) => {
         res.render("inventory/add-inventory", {
             errors,
             title: "Add New Inventory",
-            classificationList: await utilities.buildClassificationList(),
+            classificationSelect: await utilities.buildClassificationList(invData.classification_id),
             nav,
             invData,
         })
