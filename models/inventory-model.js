@@ -6,7 +6,13 @@ const inventory = {}
  *  Get all classification data
  * ************************** */
 inventory.getClassifications = async function () {
-    return await pool.query("SELECT * FROM public.classification ORDER BY classification_name")
+    
+    try {
+        return classifications = await pool.query("SELECT * FROM public.classification ORDER BY classification_name")
+    } catch (error) {
+        console.error("getClassifications error " + error)
+        return null
+    }
 }
 
 /* ***************************
@@ -53,7 +59,7 @@ inventory.saveNewClassification = async function (classification_name) {
     
 }
 
-inventory.saveNewInventory = async function (invData) {
+inventory.saveNewVehicle = async function (invData) {
     if (!invData.inv_image || invData.inv_image.trim() === "") {
         invData.inv_image = "/images/vehicles/no-image.png"
     }
@@ -79,6 +85,33 @@ inventory.saveNewInventory = async function (invData) {
         ])
     } catch (error) {
         console.error("saveNewInventory error " + error)
+        return error.message
+    }
+}
+
+inventory.updateVehicle = async function (invData) {
+
+    try {
+        console.log(parseInt(invData.inv_miles),
+            parseInt(invData.classification_id),
+            parseInt(invData.inv_id),)
+        const sql = `UPDATE public.inventory
+        SET inv_make = $1, inv_model = $2, inv_year = $3, inv_description = $4, 
+            inv_price = $5, inv_miles = $6, inv_color = $7, classification_id = $8
+        WHERE inv_id = $9 RETURNING *`
+        return await pool.query(sql, [
+            invData.inv_make,
+            invData.inv_model,
+            invData.inv_year,
+            invData.inv_description,
+            invData.inv_price,
+            parseInt(invData.inv_miles),
+            invData.inv_color,
+            parseInt(invData.classification_id),
+            parseInt(invData.inv_id),
+        ])
+    } catch (error) {
+        console.error("updateVehicle error " + error)
         return error.message
     }
 }

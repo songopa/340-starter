@@ -93,7 +93,7 @@ invCont.buildAddInventory = async function (req, res) {
 invCont.saveNewInventory = async function (req, res) {
     let nav = await utilities.getNav();
     const invData = req.body;
-    const result = await invModel.saveNewInventory(invData);
+    const result = await invModel.saveNewVehicle(invData);
 
     if (result) {
         req.flash("notice", "New inventory item added successfully.");
@@ -148,6 +148,25 @@ invCont.editInventoryView = async function (req, res, next) {
         inv_color: itemData.inv_color,
         classification_id: itemData.classification_id
     })
-  }
+}
+  
+invCont.updateInventory = async function (req, res) {
+    let nav = await utilities.getNav()
+    const invData = req.body
+    const result = await invModel.updateVehicle(invData)
+
+    if (result) {
+        req.flash("notice", "Inventory item updated successfully.");
+        res.status(201).redirect("/inv");
+    } else {
+        req.flash("notice", "Failed to update inventory item.");
+        res.status(501).render("./inventory/edit-inventory", {
+            title: "Edit Inventory",
+            nav,
+            errors: null,
+            invData,
+        });
+    }
+}
 
 module.exports = invCont;

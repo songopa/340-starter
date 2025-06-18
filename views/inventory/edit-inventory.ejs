@@ -17,7 +17,7 @@
 </div>
 
 <div class="d-flex-center margin-sm">
-    <form action="/inv/add-inventory" method="post">
+    <form action="/inv/edit/<%=inv_id%>" method="post" id="updateForm">
         <label>
             Classification <sup>*</sup>
             <%- classificationSelect %>
@@ -50,6 +50,8 @@
             Color <sup>*</sup>
             <input type="text" name="inv_color" value="<%= inv_color %>" placeholder="Vehicle Color" required>
         </label>
-        <button type="submit" class="center">Update vehicle details</button>
+        <input type="hidden" name="inv_id" value="<%= inv_id %>" >
+        <button type="submit" disabled>Update vehicle details</button>
     </form>
 </div>
+<script src="../../js/inv-update.js"></script>

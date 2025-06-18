@@ -99,6 +99,13 @@ button:hover, .button:hover {
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
+button:disabled, .button:disabled {
+  background-color: var(--heading-background);
+  color: var(--primary-font-color);
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
 img {
   max-width: 99vw;
   height: auto;
