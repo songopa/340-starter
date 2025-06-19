@@ -164,22 +164,24 @@ Util.accountMiddleware = function (req, res, next) {
 /* ****************************************
 * Middleware to check if user is an Employee or Admin 
 **************************************** */
-Util.checkAccountType = function (req, res, next) {
+Util.checkAccountType =async function (req, res, next) {
     const token = req.cookies.jwt;
+    const nav =await Util.getNav()
     if (!token) {
         req.flash("notice", "You must be logged in as an Employee or Admin to access this page.");
         return res.status(403).render("account/login", {
             title: "Login",
-            nav: utilities.getNav(),
+            nav ,
             errors: null,
         });
     }
+    
     jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, accountData) => {
         if (err || !accountData || (accountData.account_type !== "Employee" && accountData.account_type !== "Admin")) {
             req.flash("notice", "You must be an Employee or Admin to access this page.");
             return res.status(403).render("account/login", {
                 title: "Login",
-                nav: utilities.getNav(),
+                nav,
                 errors: null,
             });
         }
