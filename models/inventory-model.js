@@ -116,4 +116,15 @@ inventory.updateVehicle = async function (invData) {
     }
 }
 
+inventory.deleteVehicle = async function (inv_id) {
+    try {
+        const sql = "DELETE FROM public.inventory WHERE inv_id = $1"
+        return await pool.query(sql, [inv_id])
+    } catch (error) {
+        console.error("deleteVehicle error " + error)
+        return error.message
+    }
+}
+
+
 module.exports = inventory;

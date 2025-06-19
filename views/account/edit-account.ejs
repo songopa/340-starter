@@ -1,0 +1,60 @@
+<h1>
+    <%- title %>
+</h1>
+<div>
+    <%- messages() %>
+</div>
+<div class="d-flex-center text-danger">
+    <% if (errors) { %>
+        <ul class="notice">
+            <% errors.array().forEach(error=> { %>
+                <li>
+                    <%= error.msg %>
+                </li>
+                <% }) %>
+        </ul>
+        <% } %>
+</div>
+
+<div class="d-flex-center margin-sm">
+    <form action="/account/edit/<%= accountData.account_id %>" method="post" id="updateForm">
+        <fieldset>
+            <legend>Update Account Information</legend>
+            
+            <label>
+                First Name <sup>*</sup>
+                <input type="text" name="account_firstname" value="<%= accountData.account_firstname %>"  placeholder="Firstname" required>
+            </label>
+            <label>
+                Last Name <sup>*</sup>
+                <input type="text" name="account_lastname" value="<%= accountData.account_lastname %>"  placeholder="Lastname" required>
+            </label>
+            <label>
+                Email <sup>*</sup>
+                <input type="email" name="account_email" min="1900" max="2025" value="<%= accountData.account_email %>" placeholder="Email address" required>
+            </label>
+            <input type="hidden" name="account_id" value="<%= accountData.account_id %>" >
+            <button type="submit" >Update Account Details</button>
+        </fieldset>
+    </form>
+    <!-- Update password form -->
+    <form action="/account/edit-password/<%= accountData.account_id %>" method="post" id="updatePasswordForm">
+        <fieldset>
+            <legend>Update Password</legend>
+            <label>
+                Current Password <sup>*</sup>
+                <input type="password" name="current_password" placeholder="Current Password" required>
+            </label>
+            <label>
+                New Password <sup>*</sup>
+                <input type="password" name="new_password" placeholder="New Password" required>
+            </label>
+            <label>
+                Confirm New Password <sup>*</sup>
+                <input type="password" name="confirm_new_password" placeholder="Confirm New Password" required>
+            </label>
+            <input type="hidden" name="account_id" value="<%= accountData.account_id %>">
+            <button type="submit">Update Password</button>
+        </fieldset>
+
+</div>

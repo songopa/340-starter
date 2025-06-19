@@ -58,6 +58,8 @@ app.use(bodyParser.urlencoded({ extended: true }))
 //jwt middleware
 app.use(utilities.checkJWTToken)
 
+// Middleware to make logged-in user data available in all views
+app.use(utilities.accountMiddleware)
 
 /* ***********************
  * Routes

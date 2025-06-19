@@ -169,4 +169,45 @@ invCont.updateInventory = async function (req, res) {
     }
 }
 
+invCont.deleteInventoryView = async function (req, res) {
+    const inv_id = parseInt(req.params.inv_id)
+    let nav = await utilities.getNav()
+    const itemData = await invModel.getVehicleById(inv_id)
+    res.render("./inventory/delete-confirm", {
+        title: "Delete " + itemData.inv_make + " " + itemData.inv_model,
+        nav,
+        errors: null,
+        inv_id: itemData.inv_id,
+        inv_make: itemData.inv_make,
+        inv_model: itemData.inv_model,
+        inv_year: itemData.inv_year,
+        inv_price: itemData.inv_price,
+    })
+}
+
+invCont.deleteInventory = async function (req, res) {
+    const inv_id = parseInt(req.params.inv_id)
+    let nav = await utilities.getNav()
+    const result = await invModel.deleteVehicle(inv_id)
+
+    if (result) {
+        req.flash("notice", "Inventory item deleted successfully.");
+        res.status(201).redirect("/inv");
+    } else {
+        const itemData = await invModel.getVehicleById(inv_id)
+        req.flash("notice", "Failed to delete inventory item.");
+        res.status(501).render("./inventory/delete-confirm", {
+            title: "Delete " + itemData.inv_make + " " + itemData.inv_model,
+            nav,
+            errors: null,
+            inv_id: itemData.inv_id,
+            inv_make: itemData.inv_make,
+            inv_model: itemData.inv_model,
+            inv_year: itemData.inv_year,
+            inv_price: itemData.inv_price,
+        });
+    }
+}
+
+
 module.exports = invCont;

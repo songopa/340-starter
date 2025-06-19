@@ -39,6 +39,7 @@ accountFunctions.registerAccount = async function (req, res) {
             nav,
         })
     } else {
+        res.locals = req.body
         req.flash("notice", "Sorry, the registration failed.")
         res.status(501).render("account/register", {
             title: "Registration",
@@ -66,13 +67,13 @@ accountFunctions.accountLogin = async function (req, res) {
     let nav = await utilities.getNav()
     const { account_email, account_password } = req.body
     const accountData = await accountModel.getAccountByEmail(account_email)
+    res.locals.account_email = account_email
     if (!accountData) {
         req.flash("notice", "Please check your credentials and try again.")
         res.status(400).render("account/login", {
             title: "Login",
             nav,
             errors: null,
-            account_email,
         })
         return
     }
@@ -85,15 +86,17 @@ accountFunctions.accountLogin = async function (req, res) {
             } else {
                 res.cookie("jwt", accessToken, { httpOnly: true, secure: true, maxAge: 3600 * 1000 })
             }
+            req.session.account_firstname = accountData.account_firstname
+            req.session.accountData = accountData
             return res.redirect("/account/")
         }
         else {
+
             req.flash("message notice", "Please check your credentials and try again.")
             res.status(400).render("account/login", {
                 title: "Login",
                 nav,
                 errors: null,
-                account_email,
             })
         }
     } catch (error) {
@@ -101,16 +104,95 @@ accountFunctions.accountLogin = async function (req, res) {
     }
   }
 
+  accountFunctions.accountLogout = async function (req, res) {
+      
+      // Clear the JWT cookie
+      res.clearCookie("jwt")
+      req.flash("notice", "You have been logged out.")
+      res.redirect("/account/login/")
+  }
   
-accountFunctions.buildAccount = async function (req, res) {
+accountFunctions.buildViewAccount = async function (req, res) {
     let nav = await utilities.getNav()
-    const accountData = req.accountData
     res.render("account/account", {
         title: "Account",
+        nav,
+        accountData: req.session.accountData,
+        errors: null
+    })
+}
+
+accountFunctions.buildEditAccount = async function (req, res) {
+    let nav = await utilities.getNav()
+    const accountId = req.params.account_id
+    const accountData = await accountModel.getAccountById(accountId)
+    if (!accountData) {
+        req.flash("notice", "Sorry, that account does not exist.")
+        return res.status(404).render("errors/error", {
+            title: "Account Not Found",
+            message: "The requested account could not be found.",
+            nav
+        })
+    }
+    if (accountData.account_id !== req.session.accountData.account_id) {
+        req.flash("notice", "You do not have permission to edit this account.")
+        return res.status(403).render("errors/error", {
+            title: "Access Forbidden",
+            message: "You do not have permission to edit this account.",
+            nav
+        })
+    }
+
+    delete accountData.account_password // Remove password from account data
+    req.flash()
+    res.render("account/edit-account", {
+        title: "Edit Account",
         nav,
         accountData,
         errors: null
     })
 }
+
+accountFunctions.editAccount = async function (req, res) {
+    let nav = await utilities.getNav()
+    const result = await accountModel.updateAccount(req.body)
+    if (result) {
+        req.flash("notice", "Account updated successfully.")
+        delete result.account_password // Remove password from session data
+        req.session.accountData = result
+        return res.status(200).redirect("/account/")
+    } else {
+        req.flash("notice", "Sorry, the update failed. Please try again.")
+        return res.status(501).render("account/edit-account", {
+            title: "Edit Account",
+            nav,
+            accountData: req.body,
+            errors: null
+        })
+    }
+}
+
+accountFunctions.editPassword = async function (req, res) {
+    let nav = await utilities.getNav()
+    const accountId = req.params.account_id
+    const hashedPassword = await bcrypt.hash(req.body.new_password, 10)
+    const result = await accountModel.updatePassword(accountId, hashedPassword)
+    if (result) {
+        req.flash("notice", "Password updated successfully.")
+        delete result.account_password // Remove password from session data
+        req.session.accountData = result
+        return res.status(200).redirect("/account/")
+    } else {
+        req.flash("notice", "Sorry, the update failed. Please try again.")
+        return res.status(501).render("account/edit-account", {
+            title: "Edit Account",
+            nav,
+            accountData: req.body,
+            errors: null
+        })
+    }
+}
+
+
 
 module.exports = accountFunctions;

@@ -6,15 +6,16 @@
 }
 
 :root {
-  --brand-color: #f00;
+  --brand-color: rgb(0, 183, 255);
   --brand-color-2: #EBE4D2;
   --brand-color-3: #FCC133;
-  --heading-color: #f00;
+  --heading-color: rgb(2, 72, 138);
   --heading-background: #ccc;
   --primary-font-color: #000;
   --secondary-font-color: #fff;
   --link-color: blue;
   --link-visited: rgb(9, 0, 131);
+  --card-border: 1px solid #003546;
 }
 
 body {
@@ -40,7 +41,7 @@ nav a  {
   display: none;
   text-decoration: none;
   font-size: 1.2rem;
-  color: var(--secondary-font-color);
+  color: var(--primary-font-color);
   font-weight: bold;
   padding: 1rem;
   border-top: thin solid;
@@ -79,7 +80,7 @@ footer {
   justify-content: space-around;
 }
 footer a {
-  color: var(--secondary-font-color);
+  color: var(--primary-font-color);
 }
 
 button, .button{
@@ -143,27 +144,12 @@ h1, h2, h3 {
   color: var(--heading-color);
 }
 #tools a {
-  text-decoration: none;
+  /* text-decoration: none; */
   color: var(--heading-color);
 }
 
 /* general section styles */
-.d-flex-between {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-}
-.d-flex-center {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.df-flex-around {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  flex-wrap: wrap;
-}
+
 .content-box {
   margin: 1rem;
   padding: .5rem;
@@ -179,6 +165,9 @@ h1, h2, h3 {
 }
 .margin-sm {
   margin: 1rem;
+}
+.margin-right-sm {
+  margin-right: 1rem;
 }
 .text-danger {
   color: red;
@@ -354,16 +343,17 @@ fieldset {
 
 legend {
   font-size: .9rem;
+  font-weight: 600;
 }
 
 form button[type='submit'] {
   width: 80%;
-  margin: 1rem 10% 0 10%;
+  margin: 1rem 10% 0 0;
 }
 
 label sup,
 legend sup {
-  color: var(--brand-color);
+  color: red;
 }
 
 .chunk-label {
@@ -435,5 +425,21 @@ legend sup {
     .vehicle-container h1 {
       margin-top: 0;
       font-size: 1.5rem;
+    }
+    .d-flex-between {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+    }
+    .d-flex-center {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .df-flex-around {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      flex-wrap: wrap;
     }
   }

@@ -149,5 +149,46 @@ Util.buildClassificationList = async function (classification_id = null) {
     return classificationList
 }
 
+/* ****************************************
+ *  Middleware to make logged-in user data available in all views
+ * ************************************ */
+Util.accountMiddleware = function (req, res, next) {
+    if (req.session && req.session.account_firstname) {
+        res.locals.account_firstname = req.session.account_firstname;
+    } else {
+        res.locals.account_firstname = null;
+    }
+    next();
+}
+
+/* ****************************************
+* Middleware to check if user is an Employee or Admin 
+**************************************** */
+Util.checkAccountType = function (req, res, next) {
+    const token = req.cookies.jwt;
+    if (!token) {
+        req.flash("notice", "You must be logged in as an Employee or Admin to access this page.");
+        return res.status(403).render("account/login", {
+            title: "Login",
+            nav: utilities.getNav(),
+            errors: null,
+        });
+    }
+    jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, accountData) => {
+        if (err || !accountData || (accountData.account_type !== "Employee" && accountData.account_type !== "Admin")) {
+            req.flash("notice", "You must be an Employee or Admin to access this page.");
+            return res.status(403).render("account/login", {
+                title: "Login",
+                nav: utilities.getNav(),
+                errors: null,
+            });
+        }
+        // User is authorized
+        res.locals.accountData = accountData;
+        next();
+    });
+};
+
+
 
 module.exports = Util

@@ -8,7 +8,7 @@
     <form action="/account/login" method="post">
         <label>
             Email <sup>*</sup>
-            <input type="email" name="account_email" id="email" placeholder="Your email" required>
+            <input type="email" name="account_email" value="<%= locals.account_email %>" placeholder="Your email" required>
         </label>
         <label>
             Password <sup>*</sup>
