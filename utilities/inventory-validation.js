@@ -2,6 +2,7 @@ const utilities = require(".")
 const { body, validationResult } = require("express-validator")
 const validate = {}
 
+
 /*  **********************************
   *  Classification Data Validation Rules
   * ********************************* */
@@ -18,7 +19,7 @@ validate.classificationRules = () => {
 }
 
 /* ******************************
- * Check data and return errors or continue to saving classification
+ * Check data and return errors or continue to saving Classification
  * ***************************** */
 validate.checkClassificationData = async (req, res, next) => {
     const classification_name = req.body
@@ -36,6 +37,8 @@ validate.checkClassificationData = async (req, res, next) => {
     }
     next()
 }
+
+
 
 /*  **********************************
   *  Inventory Data Validation Rules

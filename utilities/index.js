@@ -23,6 +23,7 @@ Util.getNav = async function (req, res, next) {
                 "</a>"
         })
     }
+    list += '<a href="/contact-us" title="Contact Us">Contact Us</a>'
     return list
 
 }

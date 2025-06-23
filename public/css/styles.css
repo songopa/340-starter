@@ -149,13 +149,73 @@ h1, h2, h3 {
 }
 
 /* general section styles */
+.d-none {
+  display: none !important;
+}
 
+.d-block {
+  display: block !important;
+}
+
+.d-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+  grid-gap: 10px;
+}
+
+.d-flex {
+  display: flex !important;
+  flex-wrap: wrap;
+}
+
+.d-inline {
+  display: inline-block !important;
+}
+
+.justify-around {
+  justify-content: space-around;
+}
+
+.justify-center {
+  justify-content: center;
+  justify-items: center;
+}
+
+.justify-end {
+  justify-content: end;
+}
+
+.align-center {
+  align-content: center;
+}
 .content-box {
   margin: 1rem;
   padding: .5rem;
   border: 2px solid var(--brand-color);
   border-radius: 10px;
   background-color: var(--secondary-font-color);
+}
+.card {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--card-background);
+  border: var(--card-border);
+  border-radius: var(--card-border-radius);
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  width: fit-content;
+  max-width: 100%;
+}
+
+.card-header {
+  background-color: var(--card-background);
+  padding: .5rem 1rem;
+  font-size: 1.2rem;
+  border-bottom: 2px solid var(--brand-color);
+}
+
+.card-body {
+  padding: 10px;
+  flex-wrap: wrap;
 }
 .text-center {
   text-align: center;
@@ -172,6 +232,7 @@ h1, h2, h3 {
 .text-danger {
   color: red;
 }
+
 /*end general section styles */
 
 /* Home Page */

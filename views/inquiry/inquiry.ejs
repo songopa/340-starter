@@ -1,0 +1,71 @@
+<h1>
+    <%= title %>
+</h1>
+<div>
+    <p><%- messages() %></p>
+</div>
+<div class="d-flex-center text-danger">
+    <% if (errors) { %>
+        <ul class="notice">
+            <% errors.array().forEach(error=> { %>
+                <li>
+                    <%= error.msg %>
+                </li>
+                <% }) %>
+        </ul>
+        <% } %>
+</div>
+<div class="d-grid justify-center">
+    <div class="align-center">
+        <h2>Talk to Us</h2>
+        <p>
+            We value your inputs and we promise to reach back within shortest time possible.
+            Let us know how we can help and make our services valuable to you.
+        </p>
+    </div>
+    <div class="card" id="contactCard">
+        <div class="card-header">
+            Send us a message
+        </div>
+        <div class="card-body">
+            <form action="/contact-us" method="post" id="contactForm">
+                <label>
+                    Name
+                    <input type="text" name="inquiry_name" value="<%= locals.inquiry_name %>" placeholder="Your name" autocomplete="given-name">
+                </label>
+                <label>
+                    Email <sup>*</sup>
+                    <input type="email" name="inquiry_email" value="<%= locals.inquiry_email %>" placeholder="Your email" required autocomplete="email">
+                </label>
+                <fieldset>
+                    <legend class="chunk-label"> Type of enquiry <sup>*</sup></legend>
+                    <label>
+                        <input type="radio" name="inquiry_purpose" id="purpose1" value="General Inquiry" required> General Inquiry
+                    </label>
+                    <label>
+                        <input type="radio" name="inquiry_purpose" id="purposer2" value="Vehicle Inquiry" required> Vehicle Inquiry
+                    </label>
+                    <label>
+                        <input type="radio" name="inquiry_purpose" id="purpose3" value="Website Suggestion" required> Website Suggestion
+                    </label>
+                </fieldset>
+                <label>
+                    Message <sup>*</sup>
+                    <textarea name="inquiry_text"  rows="10" required> <%= locals.inquiry_text %></textarea>
+                </label>
+
+                <label for="subscribe">
+                    <input type="checkbox" name="subscribed" >
+                    Agree to newsletter subscription
+                </label>
+                <button type="submit" class="center">Send Message</button>
+            </form>
+        </div>
+    </div>
+    <dialog id="contactDialog">
+        <div class="mt-sm" id="dialogInfo"></div>
+        <div class="text-center">
+            <button id="closeBtn">Close</button>
+        </div>
+    </dialog>
+</div>
